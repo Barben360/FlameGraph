@@ -364,6 +364,8 @@ sub namehash {
 	return (1 - $vector / $max)
 }
 
+my $color_counter = 0;
+
 sub color {
 	my ($type, $hash, $name) = @_;
 	my ($v1, $v2, $v3);
@@ -378,11 +380,42 @@ sub color {
 	}
 
 	# theme palettes
+	# if (defined $type and $type eq "hot") {
+	# 	my $r = 205 + int(50 * $v3);
+	# 	my $g = 0 + int(230 * $v1);
+	# 	my $b = 0 + int(55 * $v2);
+	# 	return "rgb($r,$g,$b)";
+	# }
 	if (defined $type and $type eq "hot") {
-		my $r = 205 + int(50 * $v3);
-		my $g = 0 + int(230 * $v1);
-		my $b = 0 + int(55 * $v2);
-		return "rgb($r,$g,$b)";
+		my $randforce = 60;
+		if ($color_counter == 0) {
+			$color_counter = 1;
+			my $r = 193 + int($randforce * $v1);
+			my $g = 229 + int($randforce * $v2);
+			my $b = 30 + int($randforce * $v3);
+			return "rgb($r,$g,$b)";
+		}
+		if ($color_counter == 1) {
+			$color_counter = 2;
+			my $r = 0 + int($randforce * $v1);
+			my $g = 200 + int($randforce * $v2);
+			my $b = 171 + int($randforce * $v3);
+			return "rgb($r,$g,$b)";
+		}
+		if ($color_counter == 2) {
+			$color_counter = 0;
+			my $r = 255 + int($randforce * $v1);
+			my $g = 64 + int($randforce * $v2);
+			my $b = 111 + int($randforce * $v3);
+			return "rgb($r,$g,$b)";
+		}
+		if ($color_counter == 3) {
+			$color_counter = 0;
+			my $r = 245 + int($randforce * $v1);
+			my $g = 247 + int($randforce * $v2);
+			my $b = 251 + int($randforce * $v3);
+			return "rgb($r,$g,$b)";
+		}
 	}
 	if (defined $type and $type eq "mem") {
 		my $r = 0;
